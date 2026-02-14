@@ -14,7 +14,7 @@ import { toast } from 'sonner';
 import Template1 from '@/components/templates/Template1';
 import Template2 from '@/components/templates/Template2';
 import Template3 from '@/components/templates/Template3';
-import Template5 from '@/components/templates/Template5';
+
 import { exportToPDF, exportToDocx, exportToPNG } from '@/utils/exportPdf';
 import logo from '@/assets/logo.png';
 
@@ -24,7 +24,7 @@ const templates = [
   { id: 'template1', name: 'Classic Professional', component: Template1 },
   { id: 'template2', name: 'Modern Minimalist', component: Template2 },
   { id: 'template3', name: 'Executive Bold', component: Template3 },
-  { id: 'template5', name: 'Two Column Pro', component: Template5 },
+
 ];
 
 export default function Builder() {
@@ -546,114 +546,142 @@ export default function Builder() {
           </div>
         );
 
-      case 5:
-        return (
-          <div className="space-y-6">
-            <h2 className="text-2xl font-bold text-foreground">Skills</h2>
-            <div className="grid grid-cols-1 gap-4">
-              <div>
-                <Label>Programming Languages</Label>
-                <Input
-                  value={(resumeData.skills.languages || []).join(', ')}
-                  onChange={(e) => setResumeData({
-                    ...resumeData,
-                    skills: { ...resumeData.skills, languages: e.target.value.split(',').map(s => s.trim()).filter(Boolean) }
-                  })}
-                  placeholder="JavaScript, Python, Java"
-                />
-              </div>
-              <div>
-                <Label>Frameworks</Label>
-                <Input
-                  value={(resumeData.skills.frameworks || []).join(', ')}
-                  onChange={(e) => setResumeData({
-                    ...resumeData,
-                    skills: { ...resumeData.skills, frameworks: e.target.value.split(',').map(s => s.trim()).filter(Boolean) }
-                  })}
-                  placeholder="React, Node.js, Django"
-                />
-              </div>
-              <div>
-                <Label>Tools</Label>
-                <Input
-                  value={(resumeData.skills.tools || []).join(', ')}
-                  onChange={(e) => setResumeData({
-                    ...resumeData,
-                    skills: { ...resumeData.skills, tools: e.target.value.split(',').map(s => s.trim()).filter(Boolean) }
-                  })}
-                  placeholder="Git, Docker, AWS"
-                />
-              </div>
-            </div>
-          </div>
-        );
+// Replace your case 5 in the Builder.tsx file with this:
 
-      case 6:
-        return (
-          <div className="space-y-6">
-            <div className="flex justify-between items-center">
-              <h2 className="text-2xl font-bold text-foreground">Projects & Certifications</h2>
-              <Button onClick={addProject} size="sm">
-                <Plus className="w-4 h-4 mr-2" /> Add Project
+// Replace your case 5 in the Builder.tsx file with this:
+
+case 5:
+  return (
+    <div className="space-y-6">
+      <h2 className="text-2xl font-bold text-foreground">Skills</h2>
+      <div className="grid grid-cols-1 gap-4">
+        <div>
+          <Label>Programming Languages</Label>
+          <Input
+            value={
+              typeof resumeData.skills.languages === 'string' 
+                ? resumeData.skills.languages 
+                : Array.isArray(resumeData.skills.languages) 
+                  ? (resumeData.skills.languages as string[]).join(', ') 
+                  : ''
+            }
+            onChange={(e) => setResumeData({
+              ...resumeData,
+              skills: { ...resumeData.skills, languages: e.target.value }
+            })}
+            placeholder="JavaScript, Python, Java"
+          />
+        </div>
+        <div>
+          <Label>Frameworks</Label>
+          <Input
+            value={
+              typeof resumeData.skills.frameworks === 'string' 
+                ? resumeData.skills.frameworks 
+                : Array.isArray(resumeData.skills.frameworks) 
+                  ? (resumeData.skills.frameworks as string[]).join(', ') 
+                  : ''
+            }
+            onChange={(e) => setResumeData({
+              ...resumeData,
+              skills: { ...resumeData.skills, frameworks: e.target.value }
+            })}
+            placeholder="React, Node.js, Django"
+          />
+        </div>
+        <div>
+          <Label>Tools</Label>
+          <Input
+            value={
+              typeof resumeData.skills.tools === 'string' 
+                ? resumeData.skills.tools 
+                : Array.isArray(resumeData.skills.tools) 
+                  ? (resumeData.skills.tools as string[]).join(', ') 
+                  : ''
+            }
+            onChange={(e) => setResumeData({
+              ...resumeData,
+              skills: { ...resumeData.skills, tools: e.target.value }
+            })}
+            placeholder="Git, Docker, AWS"
+          />
+        </div>
+      </div>
+    </div>
+  );
+
+case 6:
+  return (
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <h2 className="text-2xl font-bold text-foreground">Projects & Certifications</h2>
+        <Button onClick={addProject} size="sm">
+          <Plus className="w-4 h-4 mr-2" /> Add Project
+        </Button>
+      </div>
+      {resumeData.projects.map((proj) => (
+        <Card key={proj.id} className="p-6 bg-card/50 backdrop-blur">
+          <div className="space-y-4">
+            <div className="flex justify-between items-start">
+              <h3 className="font-semibold text-lg text-foreground">Project</h3>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => removeProject(proj.id)}
+              >
+                <Trash2 className="w-4 h-4 text-destructive" />
               </Button>
             </div>
-            {resumeData.projects.map((proj) => (
-              <Card key={proj.id} className="p-6 bg-card/50 backdrop-blur">
-                <div className="space-y-4">
-                  <div className="flex justify-between items-start">
-                    <h3 className="font-semibold text-lg text-foreground">Project</h3>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => removeProject(proj.id)}
-                    >
-                      <Trash2 className="w-4 h-4 text-destructive" />
-                    </Button>
-                  </div>
-                  <div>
-                    <Label>Project Title</Label>
-                    <Input
-                      value={proj.title}
-                      onChange={(e) => updateProject(proj.id, 'title', e.target.value)}
-                      placeholder="Project Name"
-                    />
-                  </div>
-                  <div>
-                    <Label>Description</Label>
-                    <Textarea
-                      value={proj.description}
-                      onChange={(e) => updateProject(proj.id, 'description', e.target.value)}
-                      placeholder="Describe the project..."
-                      rows={3}
-                    />
-                  </div>
-                </div>
-              </Card>
-            ))}
-            <div className="mt-6">
-              <Label>Certifications</Label>
+            <div>
+              <Label>Project Title</Label>
               <Input
-                value={resumeData.certifications.join(', ')}
-                onChange={(e) => setResumeData({
-                  ...resumeData,
-                  certifications: e.target.value.split(',').map(s => s.trim()).filter(Boolean)
-                })}
-                placeholder="AWS Certified, Google Cloud Professional"
+                value={proj.title}
+                onChange={(e) => updateProject(proj.id, 'title', e.target.value)}
+                placeholder="Project Name"
               />
             </div>
             <div>
-              <Label>Relevant Coursework</Label>
-              <Input
-                value={resumeData.coursework.join(', ')}
-                onChange={(e) => setResumeData({
-                  ...resumeData,
-                  coursework: e.target.value.split(',').map(s => s.trim()).filter(Boolean)
-                })}
-                placeholder="Data Structures, Machine Learning, Web Development"
+              <Label>Description</Label>
+              <Textarea
+                value={proj.description}
+                onChange={(e) => updateProject(proj.id, 'description', e.target.value)}
+                placeholder="Describe the project..."
+                rows={3}
               />
             </div>
           </div>
-        );
+        </Card>
+      ))}
+      <div className="mt-6">
+        <Label>Certifications</Label>
+        <Input
+          value={resumeData.certifications}
+          onChange={(e) => setResumeData({
+            ...resumeData,
+            certifications: e.target.value
+          })}
+          placeholder="AWS Certified, Google Cloud Professional, CompTIA Security+"
+        />
+        <p className="text-xs text-muted-foreground mt-1">
+          Separate multiple certifications with commas
+        </p>
+      </div>
+      <div>
+        <Label>Relevant Coursework</Label>
+        <Input
+          value={resumeData.coursework}
+          onChange={(e) => setResumeData({
+            ...resumeData,
+            coursework: e.target.value
+          })}
+          placeholder="Data Structures, Machine Learning, Web Development, Database Systems"
+        />
+        <p className="text-xs text-muted-foreground mt-1">
+          Separate multiple courses with commas
+        </p>
+      </div>
+    </div>
+  );
 
       default:
         return null;
@@ -865,9 +893,9 @@ export default function Builder() {
               <Button onClick={() => handleExport('pdf')} className="flex-1 bg-blue-600 hover:bg-blue-700">
                 <Download className="w-4 h-4 mr-2" /> Download PDF
               </Button>
-              <Button onClick={() => handleExport('docx')} variant="secondary" className="flex-1">
-                <FileText className="w-4 h-4 mr-2" /> Download DOC
-              </Button>
+ <Button onClick={() => handleExport('docx')} variant="secondary">
+  <FileText className="w-4 h-4 mr-2" /> Download DOC
+</Button>
               <Button onClick={() => handleExport('png')} variant="outline" className="flex-1">
                 <Download className="w-4 h-4 mr-2" /> Download PNG
               </Button>

@@ -15,14 +15,14 @@ const initialResumeData: ResumeData = {
   education: [],
   experience: [],
   skills: {
-    languages: [],
-    frameworks: [],
-    tools: [],
-    other: [],
+    languages: '',
+    frameworks: '',
+    tools: '',
+    other: '',
   },
   projects: [],
-  certifications: [],
-  coursework: [],
+  certifications:'' ,
+  coursework: '',
 };
 
 interface ResumeContextType {

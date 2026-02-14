@@ -8,7 +8,7 @@ import logo from '@/assets/logo.png';
 import Template1 from '@/components/templates/Template1';
 import Template2 from '@/components/templates/Template2';
 import Template3 from '@/components/templates/Template3';
-import Template5 from '@/components/templates/Template5';
+
 import { ResumeData } from '@/types/resume';
 
 const sampleData: ResumeData = {
@@ -41,20 +41,23 @@ const sampleData: ResumeData = {
     isPresent: true,
     description: ['Led development of scalable web applications', 'Mentored team of 5 junior engineers'],
   }],
-  skills: {
-    languages: ['JavaScript', 'Python', 'TypeScript'],
-    frameworks: ['React', 'Node.js', 'Django'],
-    tools: ['Git', 'Docker', 'AWS'],
-    other: [],
-  },
-  projects: [{
-    id: '1',
-    title: 'E-commerce Platform',
-    description: 'Built a full-stack e-commerce platform using React and Node.js',
-    technologies: ['React', 'Node.js', 'MongoDB'],
-  }],
-  certifications: ['AWS Certified Developer'],
-  coursework: ['Data Structures', 'Algorithms', 'Database Systems'],
+skills: {
+  languages: 'JavaScript, Python, TypeScript',
+  frameworks: 'React, Node.js, Django',
+  tools: 'Git, Docker, AWS',
+  other: '',
+},
+
+projects: [{
+  id: '1',
+  title: 'E-commerce Platform',
+  description: 'Built a full-stack e-commerce platform using React and Node.js',
+  technologies: ['React, Node.js, MongoDB'],
+}],
+
+certifications: 'AWS Certified Developer',
+
+coursework: 'Data Structures, Algorithms, Database Systems',
 };
 
 export default function Templates() {
@@ -83,13 +86,7 @@ export default function Templates() {
       features: ['Eye-catching', 'Leadership', 'Confident'],
       component: <Template3 data={sampleData} />
     },
-    { 
-      id: 'template5', 
-      name: 'Creative Balance', 
-      desc: 'Perfect balance of creativity and professionalism. Versatile for all roles.',
-      features: ['Versatile', 'Balanced', 'Unique'],
-      component: <Template5 data={sampleData} />
-    },
+
   ];
 
   const handleSelectTemplate = (templateId: string) => {
